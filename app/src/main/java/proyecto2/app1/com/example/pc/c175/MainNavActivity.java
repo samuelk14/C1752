@@ -1,10 +1,12 @@
 package proyecto2.app1.com.example.pc.c175;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
 
 public class MainNavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PressuresFragment.OnFragmentInteractionListener {
@@ -42,7 +45,28 @@ public class MainNavActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Bundle extras = getIntent().getExtras();
+        Integer reciv = extras.getInt("clave");
+
+        if (reciv == 2){
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.Contenedor, new PressuresFragment()).commit();
+        }
+        else if (reciv == 3){
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.Contenedor, new BlankFragment()).commit();
+        }
+
+
+        //displayreciv(reciv);
     }
+
+    /*private void displayreciv(Integer rec){
+      TextView texTwo = (TextView) findViewById(R.id.textV);
+      texTwo.setText(" " + rec + " ");
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -82,21 +106,26 @@ public class MainNavActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment fragment = null;
-        Boolean FragmentoSeleccionado=false;
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        //Fragment fragment = null;
+        //Boolean FragmentoSeleccionado=false;
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Intent one = new Intent(this, Main3Activity.class);
+            startActivity(one);
 
         } else if (id == R.id.nav_gallery) {
 
-            fragment = new PressuresFragment();
-            FragmentoSeleccionado=true;
+            fragmentManager.beginTransaction().replace(R.id.Contenedor, new PressuresFragment()).commit();
+            /*fragment = new PressuresFragment();
+            FragmentoSeleccionado=true;*/
 
         } else if (id == R.id.nav_slideshow) {
 
-            fragment = new BlankFragment();
-            FragmentoSeleccionado=true;
+            fragmentManager.beginTransaction().replace(R.id.Contenedor, new BlankFragment()).commit();
+            /*fragment = new BlankFragment();
+            FragmentoSeleccionado=true;*/
 
         } else if (id == R.id.nav_manage) {
 
@@ -106,9 +135,9 @@ public class MainNavActivity extends AppCompatActivity
 
         }
 
-        if (FragmentoSeleccionado){
+        /*if (FragmentoSeleccionado){
             getSupportFragmentManager().beginTransaction().replace(R.id.Contenedor, fragment).commit();
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

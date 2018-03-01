@@ -36,16 +36,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (view.getId()) {
                 case R.id.boton1:
                     Intent i1 = new Intent(this, Main3Activity.class);
-                    startActivity(i1);
                     BlankFragment fragment1 = new BlankFragment();
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction FragmentTransaction = fragmentManager.beginTransaction();
-                    FragmentTransaction.add(R.id.activity2, fragment1, null);
+                    FragmentTransaction.add(R.id.frameLayout, fragment1, null);
+                    startActivity(i1);
                     return;
 
                 case R.id.boton2:
+                    Integer verificador = 2;
                     Intent in = new Intent(this, MainNavActivity.class);
+                    in.putExtra("clave", verificador);
                     startActivity(in);
+                    return;
+
+                case R.id.boton3:
+                    Integer verificator = 3;
+                    Intent inn = new Intent(this, MainNavActivity.class);
+                    inn.putExtra("clave", verificator);
+                    startActivity(inn);
                     return;
 
 
